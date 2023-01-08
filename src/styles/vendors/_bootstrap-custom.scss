@@ -1,0 +1,79 @@
+/************************************
+  Bootstrap Customization
+************************************/
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import '~bootstrap/scss/functions';
+
+// 2. Include any default variable overrides here
+/* ------- Colors ------- */
+$primary: $primary;
+$secondary: $secondary;
+$light: $light;
+$white: $white;
+
+$body-bg: $body-bg;
+$body-color: $body-color;
+
+$theme-colors: $theme-colors;
+
+/* ------- Typography ------- */
+$font-family-base: $font-family-base;
+$font-size-base: $font-size-base;
+$font-size-sm: $font-size-sm;
+$font-size-lg: $font-size-lg;
+
+$font-weight-light: $font-weight-light;
+$font-weight-normal: $font-weight-normal;
+$font-weight-semibold: $font-weight-semibold;
+$font-weight-bold: $font-weight-bold;
+
+$line-height-base: $line-height-base;
+$line-height-sm: $line-height-sm;
+$line-height-lg: $line-height-lg;
+
+$h1-font-size: $h1-font-size;
+
+$headings-margin-bottom: $headings-margin-bottom;
+$headings-font-weight: $headings-font-weight;
+$headings-line-height: $headings-line-height;
+
+/* ------- Links ------- */
+$link-color: $link-color;
+$link-decoration: $link-decoration;
+
+/* ------- Borders ------- */
+$border-width: $border-width;
+$border-color: $border-color;
+
+$border-radius: $border-radius;
+$border-radius-sm: $border-radius-sm;
+$border-radius-lg: $border-radius-lg;
+
+/* ------- Transition ------- */
+$transition-base: $transition-duration;
+
+/* ------- Buttons ------- */
+$btn-padding-y: $btn-padding-y;
+$btn-padding-x: $btn-padding-x;
+$btn-line-height: $btn-line-height;
+$btn-font-weight: $btn-font-weight;
+$btn-transition: $btn-transition;
+
+/* ------- Forms ------- */
+$input-padding-y: $input-padding-y;
+$input-padding-x: $input-padding-x;
+$input-bg: $input-bg;
+$input-border-color: $input-border-color;
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import '~bootstrap/scss/variables';
+
+// 4. Include any default map overrides here
+/* ------- Colors ------- */
+$theme-colors: map-remove($theme-colors, 'info', 'warning', 'dark');
+
+// 5. Include remainder of required parts
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/root';
