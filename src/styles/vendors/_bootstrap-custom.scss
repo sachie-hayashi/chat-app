@@ -66,12 +66,17 @@ $input-padding-x: $input-padding-x;
 $input-bg: $input-bg;
 $input-border-color: $input-border-color;
 
+$enable-validation-icons: false;
+
 // 3. Include remainder of required Bootstrap stylesheets
 @import '~bootstrap/scss/variables';
 
 // 4. Include any default map overrides here
 /* ------- Colors ------- */
 $theme-colors: map-remove($theme-colors, 'info', 'warning', 'dark');
+
+/* ------- Forms ------- */
+$form-validation-states: map-remove($form-validation-states, 'valid');
 
 // 5. Include remainder of required parts
 @import '~bootstrap/scss/maps';

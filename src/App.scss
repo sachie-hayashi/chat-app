@@ -27,6 +27,19 @@ a {
   text-transform: $btn-text-transform;
 }
 
+// Containers
+.container-inner-sm {
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+// Forms
+.form {
+  display: grid;
+  row-gap: 1rem;
+  text-align: left;
+}
+
 .section {
   @each $breakpoint, $padding-y in $section-padding-y-spacers {
     @include media-breakpoint-up($breakpoint) {
