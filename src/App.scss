@@ -47,3 +47,15 @@ a {
     }
   }
 }
+
+// Aspect Ratio
+.ratio-content,
+.ratio-image {
+  @include position(absolute, 0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+.ratio-image {
+  object-fit: cover;
+}

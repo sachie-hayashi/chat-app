@@ -1,0 +1,27 @@
+@import '../../styles/core';
+
+:global(.sidebar-container) {
+  padding-left: $gutter-width;
+  padding-right: $gutter-width;
+}
+
+.root {
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+}
+
+.sidebarHeader {
+  padding: 2.5rem 0 1.5rem;
+}
+
+.sidebarTitle {
+  font-size: $font-size-lg;
+  margin-bottom: 0;
+}
+
+.chatList {
+  padding-bottom: 2.25rem;
+  overflow: auto;
+}

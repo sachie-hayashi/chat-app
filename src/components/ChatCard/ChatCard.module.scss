@@ -1,0 +1,65 @@
+@import '../../styles/core';
+
+.link {
+  --chat-link-padding-y: 1.5rem;
+  display: block;
+  padding-top: var(--chat-link-padding-y);
+  padding-bottom: var(--chat-link-padding-y);
+  color: inherit;
+
+  &:hover {
+    background-color: $light;
+    color: inherit;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  column-gap: 0.75rem;
+}
+
+.avatar {
+  align-self: center;
+  @include aspect-ratio(1, 1);
+  width: 2.25rem;
+}
+
+.avatarText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $primary;
+  color: $white;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  column-gap: 0.75rem;
+  position: relative;
+
+  &::after {
+    display: block;
+    @include position(absolute, $bottom: calc(var(--chat-link-padding-y) * -1));
+    width: 100%;
+    border-bottom: $border-width solid rgba($secondary, 0.2);
+    content: '';
+  }
+
+  span {
+    display: block;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.message {
+  opacity: 0.64;
+}

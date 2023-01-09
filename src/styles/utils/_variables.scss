@@ -4,15 +4,15 @@
 
 /* ------- Colors ------- */
 $primary: #5059bf;
-$secondary: #f1f1fa;
+$secondary: #4b546d;
+$tertiary: #f1f1fa;
 $light: #f5f7fb;
 $white: #fff;
 
-$text-primary: #4b546d;
-$text-secondary: #adb4c2;
+$text-muted: #adb4c2;
 
 $body-bg: $light;
-$body-color: $text-primary;
+$body-color: $secondary;
 
 $theme-colors: (
   primary: $primary,
@@ -59,9 +59,12 @@ $spacers: (
   7: $spacer * 3,
 ) !default;
 
+/* ------- Grid Containers ------- */
+$gutter-width: 16px;
+
 /* ------- Borders ------- */
 $border-width: 1px;
-$border-color: $text-secondary;
+$border-color: $text-muted;
 
 $border-radius: 0.25rem;
 $border-radius-sm: 0.125rem;

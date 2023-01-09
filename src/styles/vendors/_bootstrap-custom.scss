@@ -12,6 +12,8 @@ $secondary: $secondary;
 $light: $light;
 $white: $white;
 
+$text-muted: $text-muted;
+
 $body-bg: $body-bg;
 $body-color: $body-color;
 
@@ -41,6 +43,13 @@ $headings-line-height: $headings-line-height;
 /* ------- Links ------- */
 $link-color: $link-color;
 $link-decoration: $link-decoration;
+
+/* ------- Spacers ------- */
+$spacer: $spacer;
+$spacers: $spacers;
+
+/* ------- Grid Containers ------- */
+$grid-gutter-width: $gutter-width * 2;
 
 /* ------- Borders ------- */
 $border-width: $border-width;
