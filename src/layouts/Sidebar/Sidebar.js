@@ -3,7 +3,7 @@ import styles from './Sidebar.module.scss';
 
 const Sidebar = () => {
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} shadow`}>
       <div className={styles.sidebarHeader}>
         <div className="sidebar-container">
           <h1 className={styles.sidebarTitle}>Messages</h1>

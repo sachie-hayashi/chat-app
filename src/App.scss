@@ -23,11 +23,21 @@ a {
   transition: $transition-base;
 }
 
+button {
+  all: unset;
+}
+
 .btn {
   text-transform: $btn-text-transform;
 }
 
 // Containers
+.container-fluid-px-lg {
+  width: 100%;
+  padding-left: $gutter-width-lg;
+  padding-right: $gutter-width-lg;
+}
+
 .container-inner-sm {
   max-width: 380px;
   margin: 0 auto;
