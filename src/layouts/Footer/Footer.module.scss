@@ -1,0 +1,26 @@
+@import '../../styles/core';
+
+.textarea {
+  padding-right: calc($input-padding-x * 2 + 20px) !important;
+  resize: none;
+}
+
+.submit {
+  @include position(absolute, $top: 0, $right: 0, $bottom: 0);
+  padding-right: $input-padding-x;
+}
+
+.inputList {
+  display: flex;
+  column-gap: 1.25rem;
+  margin-top: 0.75rem;
+
+  label {
+    cursor: pointer;
+  }
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}

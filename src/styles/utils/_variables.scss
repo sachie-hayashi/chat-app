@@ -5,6 +5,7 @@
 /* ------- Colors ------- */
 $primary: #5059bf;
 $secondary: #4b546d;
+$secondary-light: rgba($secondary, 0.2);
 $tertiary: #f1f1fa;
 $light: #f5f7fb;
 $white: #fff;
@@ -67,11 +68,11 @@ $gutter-width-lg: 32px;
 
 /* ------- Borders ------- */
 $border-width: 1px;
-$border-color: $text-muted;
+$border-color: $secondary-light;
 
 $border-radius: 0.25rem;
 $border-radius-sm: 0.125rem;
-$border-radius-lg: 0.5rem;
+$border-radius-lg: 0.75rem;
 
 /* ------- Box Shadow ------- */
 $box-shadow: 0 0.25rem 2.5rem $shadow-color;
@@ -95,6 +96,7 @@ $input-padding-y: 0.875rem;
 $input-padding-x: 0.75rem;
 $input-bg: $white;
 $input-border-color: $border-color;
+$input-placeholder-color: $text-muted;
 
 /* ------- Sections ------- */
 $section-padding-y-spacers: (

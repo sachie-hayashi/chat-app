@@ -46,7 +46,7 @@
     display: block;
     @include position(absolute, $bottom: calc(var(--chat-link-padding-y) * -1));
     width: 100%;
-    border-bottom: $border-width solid rgba($secondary, 0.2);
+    border-bottom: $border-width solid $border-color;
     content: '';
   }
 

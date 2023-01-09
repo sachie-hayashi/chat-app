@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { ReactComponent as ThreeDots } from '../../assets/icon-three-dots.svg';
 import { ReactComponent as Paperclip } from '../../assets/icon-paperclip.svg';
 import { ReactComponent as SmileySmile } from '../../assets/icon-smiley-smile.svg';
+import { ReactComponent as PaperPlane } from '../../assets/icon-paper-plane.svg';
 
 /**
  * Renders a SVG icon
@@ -19,6 +20,8 @@ const Icon = ({ name, ...attr }) => {
       return <Paperclip {...attr} />;
     case 'smiley-smile':
       return <SmileySmile {...attr} />;
+    case 'paper-plane':
+      return <PaperPlane {...attr} />;
     default:
       return;
   }
