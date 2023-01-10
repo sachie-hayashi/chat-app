@@ -1,0 +1,35 @@
+@import '../../styles/core';
+
+.toggle {
+  padding: 0.75rem 0;
+  transition: $transition-base;
+
+  &:hover {
+    color: $link-color;
+  }
+
+  svg path {
+    stroke: currentColor;
+  }
+}
+
+.dropdownMenu {
+  @include position(absolute, $right: 0);
+  min-width: 10rem;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  background-color: $white;
+}
+
+.dropdownLink {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  color: inherit;
+  box-sizing: border-box; // for <button>
+
+  &:hover {
+    background-color: $light;
+    color: inherit;
+  }
+}

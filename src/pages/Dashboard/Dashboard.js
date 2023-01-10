@@ -1,25 +1,18 @@
-import logo from '../../assets/logo.svg';
-import './Dashboard.scss';
+import Header from '../../layouts/Header/Header';
+import Footer from '../../layouts/Footer/Footer';
+import Sidebar from '../../layouts/Sidebar/Sidebar';
+import ChatFeed from '../../layouts/ChatFeed/ChatFeed';
+import styles from './Dashboard.module.scss';
 
-function App() {
+const Dashboard = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.root}>
+      <Sidebar />
+      <Header />
+      <ChatFeed />
+      <Footer />
     </div>
   );
-}
+};
 
-export default App;
+export default Dashboard;

@@ -1,0 +1,11 @@
+@import '../../styles/core';
+
+.root {
+  display: block;
+}
+
+.labelText {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: $font-weight-semibold;
+}
