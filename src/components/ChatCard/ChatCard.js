@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Avatar from '../Avatar';
 import styles from './ChatCard.module.scss';
 
 const ChatCard = () => {
@@ -6,8 +7,8 @@ const ChatCard = () => {
     <div>
       <Link className={`${styles.link} sidebar-container`}>
         <div className={styles.grid}>
-          <div className={styles.avatar}>
-            <span className={`${styles.avatarText} ratio-content`}>D</span>
+          <div className="align-self-center">
+            <Avatar size="sm" />
           </div>
 
           <div className={styles.content}>

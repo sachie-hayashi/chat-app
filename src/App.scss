@@ -23,6 +23,19 @@ a {
   transition: $transition-base;
 }
 
+.fs-base {
+  font-size: $font-size-base !important;
+}
+
+.fs-sm {
+  font-size: $font-size-sm !important;
+}
+
+.fs-lg {
+  font-size: $font-size-lg !important;
+}
+
+// Buttons
 button {
   all: unset;
 }

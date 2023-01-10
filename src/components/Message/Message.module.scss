@@ -1,0 +1,64 @@
+@import '../../styles/core';
+
+.root {
+  margin-bottom: 1.25rem;
+}
+
+.grid {
+  --message-grid-column-gap: 1rem;
+  --message-grid-x-spacer: calc(
+    var(--message-grid-column-gap) + #{map-get($avatar-sizes, md)}
+  );
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, auto));
+  gap: 0.5rem var(--message-grid-column-gap);
+
+  &.left {
+    justify-content: start;
+    margin-right: var(--message-grid-x-spacer);
+  }
+
+  &.right {
+    justify-content: end;
+    margin-left: var(--message-grid-x-spacer);
+  }
+}
+
+.avatar {
+  align-self: end;
+}
+
+.content {
+  max-width: 680px;
+  padding: 0.75rem 1rem;
+  border-radius: $border-radius-lg;
+  white-space: pre-line;
+  // Wrap long text
+  word-wrap: break-word; /* deprecated */
+  overflow-wrap: break-word;
+
+  .left & {
+    border-bottom-left-radius: 0;
+    background-color: $primary;
+    color: $white;
+  }
+
+  .right & {
+    order: -1;
+    border-bottom-right-radius: 0;
+    background-color: $white;
+  }
+}
+
+.time {
+  color: $body-color-light;
+  font-size: $font-size-sm;
+
+  .left & {
+    grid-column: 2;
+  }
+
+  .right & {
+    justify-self: end;
+  }
+}

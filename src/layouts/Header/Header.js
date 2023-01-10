@@ -1,3 +1,4 @@
+import Avatar from '../../components/Avatar';
 import Icon from '../../components/Icon';
 import styles from './Header.module.scss';
 
@@ -8,9 +9,7 @@ const Header = () => {
         <div className={styles.content}>
           {/* User */}
           <div className={styles.user}>
-            <div className={styles.avatar}>
-              <span className={`${styles.avatarText} ratio-content`}>D</span>
-            </div>
+            <Avatar size="lg" />
 
             <span className="fw-bold text-truncate">Darrell Steward</span>
           </div>

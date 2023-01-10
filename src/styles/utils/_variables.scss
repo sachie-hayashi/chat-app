@@ -16,6 +16,7 @@ $shadow-color: rgba(57, 61, 115, 0.08);
 
 $body-bg: $light;
 $body-color: $secondary;
+$body-color-light: rgba($body-color, 0.68);
 
 $theme-colors: (
   primary: $primary,
@@ -31,8 +32,7 @@ $font-size-lg: 1.25rem;
 
 $font-weight-light: 300;
 $font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-semibold: 600;
+$font-weight-semibold: 500;
 $font-weight-bold: 700;
 
 $line-height-base: 1.2;
@@ -42,7 +42,7 @@ $line-height-lg: 2;
 $h1-font-size: 2.5rem;
 
 $headings-margin-bottom: 1rem;
-$headings-font-weight: $font-weight-medium;
+$headings-font-weight: $font-weight-semibold;
 $headings-line-height: $line-height-base;
 
 /* ------- Links ------- */
@@ -76,6 +76,7 @@ $border-radius-lg: 0.75rem;
 
 /* ------- Box Shadow ------- */
 $box-shadow: 0 0.25rem 2.5rem $shadow-color;
+$box-shadow-sm: 0 0.25rem 1.5rem $shadow-color;
 
 /* ------- Transition ------- */
 $transition-duration: 0.3s;
@@ -85,7 +86,7 @@ $transition-base: $transition-duration;
 $btn-padding-y: 1rem;
 $btn-padding-x: 2rem;
 $btn-line-height: 1;
-$btn-font-weight: $font-weight-medium;
+$btn-font-weight: $font-weight-semibold;
 $btn-text-transform: uppercase;
 $btn-transition: color $transition-duration,
   background-color $transition-duration, border-color $transition-duration,
@@ -102,4 +103,11 @@ $input-placeholder-color: $text-muted;
 $section-padding-y-spacers: (
   xs: 2.5rem,
   md: 3.5rem,
+);
+
+/* ------- Avatar ------- */
+$avatar-sizes: (
+  sm: 2.25rem,
+  md: 2.5rem,
+  lg: 3rem,
 );

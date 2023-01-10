@@ -15,25 +15,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   column-gap: 0.75rem;
-}
-
-.avatar {
-  align-self: center;
-  @include aspect-ratio(1, 1);
-  width: 2.25rem;
-}
-
-.avatarText {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: $primary;
-  color: $white;
-  font-weight: $font-weight-medium;
-  text-transform: uppercase;
 }
 
 .content {
@@ -61,5 +44,5 @@
 }
 
 .message {
-  opacity: 0.64;
+  color: $body-color-light;
 }
