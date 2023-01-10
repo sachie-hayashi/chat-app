@@ -1,7 +1,7 @@
 @import '../../styles/core';
 
 .root {
-  padding: 0.75rem 0;
+  padding: 0.875rem 0;
   background-color: $white;
 }
 
@@ -21,18 +21,4 @@
   display: flex;
   align-items: center;
   column-gap: 2rem;
-
-  button,
-  a {
-    padding: 1rem 0;
-    transition: $transition-base;
-
-    &:hover {
-      color: $link-color;
-    }
-
-    svg path {
-      stroke: currentColor;
-    }
-  }
 }

@@ -10,7 +10,7 @@ const Message = ({ message, side }) => {
         }`}
       >
         <div className={styles.avatar}>
-          <Avatar />
+          <Avatar username="Darrell Steward" />
         </div>
 
         <div className={`${styles.content} shadow-sm`}>

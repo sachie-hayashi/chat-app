@@ -8,7 +8,7 @@ const ChatCard = () => {
       <Link className={`${styles.link} sidebar-container`}>
         <div className={styles.grid}>
           <div className="align-self-center">
-            <Avatar size="sm" />
+            <Avatar username="Darrell Steward" size="sm" />
           </div>
 
           <div className={styles.content}>

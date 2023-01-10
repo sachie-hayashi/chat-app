@@ -1,5 +1,5 @@
 import Avatar from '../../components/Avatar';
-import Icon from '../../components/Icon';
+import Menu from '../../components/Menu';
 import styles from './Header.module.scss';
 
 const Header = () => {
@@ -9,7 +9,7 @@ const Header = () => {
         <div className={styles.content}>
           {/* User */}
           <div className={styles.user}>
-            <Avatar size="lg" />
+            <Avatar username="Darrell Steward" size="lg" />
 
             <span className="fw-bold text-truncate">Darrell Steward</span>
           </div>
@@ -17,9 +17,7 @@ const Header = () => {
           {/* Navigation */}
           <ul className={`${styles.navigation} list-unstyled`}>
             <li>
-              <button type="button">
-                <Icon name="three-dots" />
-              </button>
+              <Menu />
             </li>
           </ul>
         </div>
