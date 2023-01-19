@@ -1,7 +1,7 @@
-import Header from '../../layouts/Header/Header';
-import Footer from '../../layouts/Footer/Footer';
-import Sidebar from '../../layouts/Sidebar/Sidebar';
-import ChatFeed from '../../layouts/ChatFeed/ChatFeed';
+import Header from '../../layouts/Header';
+import Footer from '../../layouts/Footer';
+import Sidebar from '../../layouts/Sidebar';
+import ChatFeed from '../../layouts/ChatFeed';
 import styles from './Dashboard.module.scss';
 
 const Dashboard = () => {

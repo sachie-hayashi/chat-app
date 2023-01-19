@@ -11,6 +11,7 @@ $primary: $primary;
 $secondary: $secondary;
 $light: $light;
 $white: $white;
+$red: $red;
 
 $text-muted: $text-muted;
 
@@ -93,6 +94,6 @@ $theme-colors: map-remove($theme-colors, 'info', 'warning', 'dark');
 $form-validation-states: map-remove($form-validation-states, 'valid');
 
 // 5. Include remainder of required parts
-@import '~bootstrap/scss/maps';
-@import '~bootstrap/scss/mixins';
-@import '~bootstrap/scss/root';
+// @import '~bootstrap/scss/maps';
+// @import '~bootstrap/scss/mixins';
+// @import '~bootstrap/scss/root';
