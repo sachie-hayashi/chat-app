@@ -10,7 +10,7 @@ const useClickOutside = (ref, callback) => {
   useEffect(() => {
     const handleClickOutside = e => {
       if (typeof callback !== 'function') return;
-      if (ref?.current.contains(e.target)) return;
+      if (ref?.current?.contains(e.target)) return;
 
       callback();
     };
@@ -18,7 +18,7 @@ const useClickOutside = (ref, callback) => {
     document.addEventListener('click', handleClickOutside);
 
     return () => {
-      document.addEventListener('click', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [ref, callback]);
 };

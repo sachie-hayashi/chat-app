@@ -1,27 +1,45 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import FormInput from '../../components/FormInput/FormInput';
+import FormInput from '../../components/FormInput';
 import styles from './Login.module.scss';
 
 const initialInputs = { email: '', password: '' };
 
 const Login = () => {
   const [inputs, setInputs] = useState(initialInputs);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState({ code: '', message: '' });
   const [isValidated, setIsValidated] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) => {
     setInputs(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsValidated(true);
 
     const form = e.currentTarget;
     if (!form.checkValidity()) return;
 
-    console.log('** inputs: ', inputs);
+    try {
+      setIsLoading(true);
+
+      await signInWithEmailAndPassword(auth, inputs.email, inputs.password);
+
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+      setError(prev => ({ ...prev, code: error.code, message: error.message }));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -41,6 +59,7 @@ const Login = () => {
                 label="Email"
                 type="email"
                 name="email"
+                value={inputs.email}
                 required
                 error="Please enter a valid email."
                 onChange={handleChange}
@@ -53,15 +72,26 @@ const Login = () => {
                   label="Password"
                   type="password"
                   name="password"
+                  value={inputs.password}
                   minLength="6"
                   required
                   error="Please enter a valid password. (6 characters or more)"
                   onChange={handleChange}
                 />
               </div>
-              <Button type="submit" variant="primary" className="mt-3">
-                Sign In
-              </Button>
+
+              <div className="mt-3">
+                {error.code && <Alert variant="danger">{error.code}</Alert>}
+
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  variant="primary"
+                  className="w-100"
+                >
+                  Sign In
+                </Button>
+              </div>
             </form>
           </div>
 
