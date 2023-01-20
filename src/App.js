@@ -7,7 +7,7 @@ import { getCurrentUser } from './redux/currentUserSlice';
 import Dashboard from './pages/Dashboard';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import ChatFeed from './layouts/ChatFeed';
+import ChatRoom from './layouts/ChatRoom';
 import './App.scss';
 
 const App = () => {
@@ -38,7 +38,7 @@ const App = () => {
         path="/"
         element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
       >
-        <Route path="/:id" element={<ChatFeed />} />
+        <Route path="/:id" element={<ChatRoom />} />
       </Route>
       <Route path="/register" element={<Signup />} />
       <Route path="/login" element={<Login />} />
