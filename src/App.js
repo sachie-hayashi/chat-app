@@ -7,6 +7,7 @@ import { getCurrentUser } from './redux/currentUserSlice';
 import Dashboard from './pages/Dashboard';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import ChatFeed from './layouts/ChatFeed';
 import './App.scss';
 
 const App = () => {
@@ -25,14 +26,20 @@ const App = () => {
     return () => {
       unsubscribe();
     };
-  }, [dispatch, navigate]);
+
+    // Do NOT add 'navigate' to dependencies array
+    // Adding 'navigate' leads to '/' every time url changes when logged in
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Routes>
       <Route
         path="/"
         element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
-      />
+      >
+        <Route path="/:id" element={<ChatFeed />} />
+      </Route>
       <Route path="/register" element={<Signup />} />
       <Route path="/login" element={<Login />} />
     </Routes>

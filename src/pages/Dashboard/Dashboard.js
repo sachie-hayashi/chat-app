@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import Header from '../../layouts/Header';
 import Footer from '../../layouts/Footer';
 import Sidebar from '../../layouts/Sidebar';
@@ -9,7 +10,8 @@ const Dashboard = () => {
     <div className={styles.root}>
       <Sidebar />
       <Header />
-      <ChatFeed />
+      {/* <ChatFeed /> */}
+      <Outlet />
       <Footer />
     </div>
   );

@@ -12,6 +12,7 @@ $secondary: $secondary;
 $light: $light;
 $white: $white;
 $red: $red;
+$green: $red;
 
 $text-muted: $text-muted;
 
@@ -87,9 +88,6 @@ $enable-validation-icons: false;
 @import '~bootstrap/scss/variables';
 
 // 4. Include any default map overrides here
-/* ------- Colors ------- */
-$theme-colors: map-remove($theme-colors, 'info', 'warning', 'dark');
-
 /* ------- Forms ------- */
 $form-validation-states: map-remove($form-validation-states, 'valid');
 

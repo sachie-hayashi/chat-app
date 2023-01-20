@@ -39,7 +39,7 @@ const Signup = () => {
         inputs.password
       );
 
-      // Create user on firestore
+      // Create user on firebase firestore
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         uid: userCredential.user.uid,
         username: inputs.username,
