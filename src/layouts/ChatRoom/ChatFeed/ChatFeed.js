@@ -1,20 +1,30 @@
+import { useEffect, useState } from 'react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { useParams } from 'react-router-dom';
 import Message from '../../../components/Message';
 
 const ChatFeed = () => {
+  const [messages, setMessages] = useState([]);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(doc(db, 'chats', id), doc => {
+      setMessages(doc.data()?.messages || []);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [id]);
+
   return (
     <div className="pt-5 overflow-auto">
       <div className="container-fluid-px-lg">
-        <Message
-          message="q=65daysofstatic&hl=de&safe=off&prmd=ivnsl&source=lnms&tbm=isch&ei=P9NkToCRMorHsgaunaClCg&sa=X&oi=mode_link&ct=mode&cd=2&ved=0CBkQ_AUoAQ&biw=1697&bih=882"
-          side="left"
-        />
-        <Message message="Hi, There, How are you?" side="left" />
-
-        <Message
-          message="q=65daysofstatic&hl=de&safe=off&prmd=ivnsl&source=lnms&tbm=isch&ei=P9NkToCRMorHsgaunaClCg&sa=X&oi=mode_link&ct=mode&cd=2&ved=0CBkQ_AUoAQ&biw=1697&bih=882"
-          side="right"
-        />
-        <Message message="Hi, There, How are you?" side="right" />
+        {messages.map(message => (
+          <Message key={message.id} {...message} />
+        ))}
       </div>
     </div>
   );

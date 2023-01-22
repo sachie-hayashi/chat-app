@@ -1,12 +1,20 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Avatar from '../Avatar';
 import styles from './ChatCard.module.scss';
 
 const ChatCard = ({ uid, username }) => {
+  const { currentUser } = useSelector(state => state);
+
+  const combineIds = (id1 = '', id2 = '') =>
+    id1 < id2 ? `${id1}${id2}` : `${id2}${id1}`;
+
+  const chatId = combineIds(uid, currentUser.uid);
+
   return (
     <div>
-      <Link to={`/${uid}`} className={`${styles.link} sidebar-container`}>
+      <Link to={`/${chatId}`} className={`${styles.link} sidebar-container`}>
         <div className={styles.grid}>
           <div className="align-self-center">
             <Avatar username={username} size="sm" />

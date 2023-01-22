@@ -1,16 +1,46 @@
 import { useState } from 'react';
+import { arrayUnion, doc, setDoc, Timestamp } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 import Icon from '../../../components/Icon';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
   const [input, setInput] = useState('');
 
-  const handleSubmit = e => {
+  const { id } = useParams();
+
+  const { currentUser } = useSelector(state => state);
+
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    console.log('** input: ', input);
+    const text = input.trim();
 
-    setInput('');
+    if (!text.length) return;
+
+    try {
+      const message = {
+        id: nanoid(),
+        text,
+        sentBy: currentUser.uid,
+        sentAt: Timestamp.now(), // serverTimestamp() not working
+      };
+
+      await setDoc(
+        doc(db, 'chats', id),
+        {
+          messages: arrayUnion(message),
+        },
+        { merge: true }
+      );
+
+      setInput('');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleUpload = e => {
@@ -21,11 +51,12 @@ const Footer = () => {
     <div className="py-3">
       <div className="container-fluid-px-lg">
         {/* Message Form */}
-        <form className="position-relative" onSubmit={handleSubmit}>
+        <form noValidate className="position-relative" onSubmit={handleSubmit}>
           <textarea
             name="message"
             value={input}
             rows={1}
+            required
             className={`${styles.textarea} form-control`}
             placeholder="Type a new message"
             onChange={e => setInput(e.target.value)}
