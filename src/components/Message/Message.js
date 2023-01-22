@@ -1,22 +1,11 @@
-import 'firebase/firestore';
 import { useSelector } from 'react-redux';
+import { formatTime } from '../../utils/datetime';
 import PropTypes from 'prop-types';
 import Avatar from '../Avatar';
 import styles from './Message.module.scss';
 
 const Message = ({ text, sentBy, sentAt }) => {
   const { currentUser } = useSelector(state => state);
-
-  const formatTime = timeObj => {
-    const time = timeObj.toDate();
-
-    const options = {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-    };
-
-    return new Intl.DateTimeFormat('en-US', options).format(time);
-  };
 
   const time = formatTime(sentAt);
 

@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { collection, query, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase';
 import ChatCard from '../../components/ChatCard';
 import styles from './Sidebar.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUsers, setUsers } from '../../redux/usersSlice';
 
 const Sidebar = () => {
-  const [users, setUsers] = useState([]);
+  const { users } = useSelector(state => state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const q = query(collection(db, 'users'));
 
     const unsubscribe = onSnapshot(q, querySnapshot => {
       // Clear users not to create duplicates
-      setUsers([]);
+      dispatch(clearUsers());
 
       querySnapshot.forEach(doc => {
-        setUsers(prev => [...prev, doc.data()]);
+        dispatch(setUsers(doc.data()));
       });
     });
 
