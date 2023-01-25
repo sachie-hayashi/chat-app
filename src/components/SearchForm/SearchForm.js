@@ -1,83 +1,10 @@
-import { useState, useEffect } from 'react';
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  doc,
-  setDoc,
-  serverTimestamp,
-} from 'firebase/firestore';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import Avatar from '../Avatar';
-import styles from './SearchForm.module.scss';
-import { useRef } from 'react';
 import useClickOutside from '../../hooks/useClickOutside';
-
-const SearchCard = ({ uid, username, email, onClick }) => {
-  const { currentUser } = useSelector(state => state);
-
-  const combineIds = (id1 = '', id2 = '') =>
-    id1 < id2 ? `${id1}${id2}` : `${id2}${id1}`;
-
-  const chatId = combineIds(uid, currentUser.uid);
-
-  const handleClick = async () => {
-    try {
-      await setDoc(doc(db, 'chatList', chatId), {
-        id: chatId,
-        members: [uid, currentUser.uid],
-        createdBy: currentUser.uid,
-        createdAt: serverTimestamp(),
-        lastMessage: {},
-      });
-    } catch (error) {
-      console.error(error);
-    }
-
-    onClick();
-  };
-
-  return (
-    <div>
-      <Link
-        to={`/${chatId}`}
-        className={`${styles.cardLink} sidebar-container`}
-        onClick={handleClick}
-      >
-        <div className={styles.cardGrid}>
-          <div className="align-self-center">
-            <Avatar username={username} size="sm" />
-          </div>
-
-          <div>
-            <span className="d-block mb-1 fw-bold text-truncate">
-              {username}
-            </span>
-            <span className={`${styles.cardText} text-truncate`}>{email}</span>
-          </div>
-        </div>
-      </Link>
-    </div>
-  );
-};
-
-SearchCard.propTypes = {
-  uid: PropTypes.string,
-  username: PropTypes.string,
-  email: PropTypes.string,
-  onClick: PropTypes.func,
-};
-
-SearchCard.defaultProps = {
-  uid: '',
-  username: '',
-  email: '',
-  onClick: () => {},
-};
+import SearchCard from '../SearchCard';
+import styles from './SearchForm.module.scss';
 
 const SearchForm = () => {
   const [input, setInput] = useState('');
@@ -87,13 +14,18 @@ const SearchForm = () => {
   const { currentUser, chatList } = useSelector(state => state);
 
   // Find existing users by members uid
-  const existingUsers = chatList.map(item =>
-    item.members.find(user => user.uid !== currentUser.uid)
-  );
+  // use useMemo for useEffect not to create infinite loop
+  const existingUsers = useMemo(() => {
+    return chatList.map(item =>
+      item.members.find(user => user.uid !== currentUser.uid)
+    );
+  }, [chatList, currentUser.uid]);
 
   const searchTerm = input.trim();
 
   const clearInput = () => setInput('');
+
+  useClickOutside(ref, clearInput);
 
   useEffect(() => {
     if (!searchTerm) return;
@@ -127,8 +59,6 @@ const SearchForm = () => {
       console.error(error);
     }
   }, [currentUser.uid, existingUsers, searchTerm]);
-
-  useClickOutside(ref, clearInput);
 
   return (
     <div ref={ref} className="position-relative">
