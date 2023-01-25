@@ -29,8 +29,9 @@ const App = () => {
 
     // Do NOT add 'navigate' to dependencies array
     // Adding 'navigate' leads to '/' every time url changes when logged in
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>

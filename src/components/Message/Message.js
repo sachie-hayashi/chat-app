@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux';
-import { formatTime } from '../../utils/datetime';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 import Avatar from '../Avatar';
 import styles from './Message.module.scss';
 
 const Message = ({ text, sentBy, sentAt }) => {
   const { currentUser } = useSelector(state => state);
 
-  const time = formatTime(sentAt);
+  const time = dayjs.unix(sentAt.seconds).format('MMM D, YYYY, h:mm a');
 
   return (
     <div className={styles.root}>

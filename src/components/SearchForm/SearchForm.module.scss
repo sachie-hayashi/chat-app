@@ -1,0 +1,50 @@
+@import '../../styles/core';
+
+.input {
+  &:global(.form-control) {
+    --input-icon-size: 1.25rem;
+    padding-right: calc(#{$input-padding-x} * 2 + var(--input-icon-size));
+    background: url('../../assets/icon-search.svg') right $input-padding-x
+      center/var(--input-icon-size) no-repeat;
+    border-color: darken($color: $light, $amount: 5%);
+
+    &,
+    &:focus {
+      background-color: $light;
+    }
+  }
+}
+
+.results {
+  @include position(absolute, $left: 0);
+  z-index: 9;
+  width: 100%;
+  max-height: 420px;
+  margin-top: 0.25rem;
+  border-radius: $border-radius;
+  background-color: $white;
+  box-shadow: 0 0.25rem 1.5rem rgba(57, 61, 115, 0.18);
+  overflow: auto;
+}
+
+.cardLink {
+  display: block;
+  padding: 1rem;
+
+  color: inherit;
+
+  &:hover {
+    background-color: $light;
+    color: inherit;
+  }
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.75rem;
+}
+
+.cardText {
+  color: $body-color-light;
+}

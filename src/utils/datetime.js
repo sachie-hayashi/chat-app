@@ -1,23 +1,20 @@
-/**
- * Convert Firestore timestamp object ro timestamp in milliseconds
- * @param {object} timestampObj timestamp object from Firestore
- * @returns timestamp in milliseconds
- */
-export const convertTimestamp = timestampObj => timestampObj.seconds * 1000;
+import dayjs from 'dayjs';
 
 /**
- * Format date & time
- * @param {object} timestampObj timestamp object from Firestore
- * @returns formatted date & time
+ * Format date
+ * @param {number} timestamp timestamp (seconds)
+ * @returns formatted date (time)
  */
-export const formatTime = timestampObj => {
-  const timestamp = convertTimestamp(timestampObj); // milliseconds
-  const time = new Date(timestamp);
+export const formatDate = timestamp => {
+  const date = dayjs.unix(timestamp);
+  const aWeekAgo = dayjs().subtract(1, 'week');
+  const aDayAgo = dayjs().subtract(1, 'day');
 
-  const options = {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  };
+  // If the date is before a week ago
+  if (date.isBefore(aWeekAgo)) return date.format('MMM D, YYYY');
 
-  return new Intl.DateTimeFormat('en-US', options).format(time);
+  // If the date is before a day ago
+  if (date.isBefore(aDayAgo)) return date.format('ddd, MMM D');
+
+  return date.format('h:mm a');
 };

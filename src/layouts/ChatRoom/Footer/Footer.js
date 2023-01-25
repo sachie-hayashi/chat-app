@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { arrayUnion, doc, setDoc, Timestamp } from 'firebase/firestore';
+import {
+  arrayUnion,
+  doc,
+  setDoc,
+  updateDoc,
+  Timestamp,
+} from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -19,7 +25,7 @@ const Footer = () => {
 
     const text = input.trim();
 
-    if (!text.length) return;
+    if (!text) return;
 
     try {
       const message = {
@@ -29,6 +35,12 @@ const Footer = () => {
         sentAt: Timestamp.now(), // serverTimestamp() not working
       };
 
+      // Update lastMessage in chatList
+      await updateDoc(doc(db, 'chatList', id), {
+        lastMessage: message,
+      });
+
+      // Update messages in chats
       await setDoc(
         doc(db, 'chats', id),
         {

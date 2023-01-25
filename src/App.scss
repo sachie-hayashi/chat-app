@@ -35,6 +35,10 @@ a {
   font-size: $font-size-lg !important;
 }
 
+.text-inherit {
+  color: inherit !important;
+}
+
 // Buttons
 button {
   all: unset;

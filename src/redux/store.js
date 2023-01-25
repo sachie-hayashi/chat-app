@@ -1,10 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import currentUserReducer from './currentUserSlice';
-import usersReducer from './usersSlice';
+import chatListReducer from './chatListSlice';
 
 export const store = configureStore({
   reducer: {
     currentUser: currentUserReducer,
-    users: usersReducer,
+    chatList: chatListReducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      // Remove non-serializable value error for Firestore timestamp
+      serializableCheck: false,
+    }),
 });

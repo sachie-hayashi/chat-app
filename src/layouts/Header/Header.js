@@ -15,7 +15,7 @@ const Header = () => {
           </div>
 
           {/* Navigation */}
-          <ul className={`${styles.navigation} list-unstyled`}>
+          <ul className={`${styles.navigation} list-unstyled ms-auto`}>
             <li>
               <Menu />
             </li>
