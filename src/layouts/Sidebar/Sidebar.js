@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearChatList, setChatItem } from '../../redux/chatListSlice';
 import { collection, query, onSnapshot, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearChatList, setChatItem } from '../../redux/chatListSlice';
 import SearchForm from '../../components/SearchForm';
 import ChatCard from '../../components/ChatCard';
 import styles from './Sidebar.module.scss';
@@ -19,7 +19,7 @@ const Sidebar = () => {
     );
 
     const unsubscribe = onSnapshot(q, querySnapshot => {
-      // Clear chatList not to create duplicates
+      // Clear chatList not to create duplicates nor keep deleted items
       dispatch(clearChatList());
 
       querySnapshot.forEach(doc => {

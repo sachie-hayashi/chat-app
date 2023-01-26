@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser } from './redux/currentUserSlice';
@@ -9,9 +9,10 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ChatRoom from './layouts/ChatRoom';
 import './App.scss';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const App = () => {
-  const { isLoggedIn } = useSelector(state => state.currentUser);
+  const { isLoggedIn, uid } = useSelector(state => state.currentUser);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,11 +28,23 @@ const App = () => {
       unsubscribe();
     };
 
-    // Do NOT add 'navigate' to dependencies array
+    // Do NOT add 'navigate' to dependencies array as suggested by ESlint
     // Adding 'navigate' leads to '/' every time url changes when logged in
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!uid) return;
+
+    const unsubscribe = onSnapshot(doc(db, 'users', uid), doc => {
+      dispatch(setCurrentUser(doc.data()));
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [uid, dispatch]);
 
   return (
     <Routes>

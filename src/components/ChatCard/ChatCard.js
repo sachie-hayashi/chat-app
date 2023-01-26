@@ -1,44 +1,46 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import Avatar from '../Avatar';
-import styles from './ChatCard.module.scss';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUser, setUser } from '../../redux/usersSlice';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { formatDate } from '../../utils/datetime';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { formatDate } from '../../utils/format';
+import Avatar from '../Avatar';
+import styles from './ChatCard.module.scss';
 
 const ChatCard = ({ id, members, lastMessage }) => {
-  const { currentUser } = useSelector(state => state);
+  const { currentUser, users } = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const chatToUid = members.find(uid => uid !== currentUser.uid);
+  const chatTo = users.find(user => user.uid === chatToUid);
 
   const time = lastMessage.sentAt && formatDate(lastMessage.sentAt.seconds);
 
-  const [chatTo, setChatTo] = useState({});
-
-  const chatToUid = members.find(uid => uid !== currentUser.uid);
-
   useEffect(() => {
     const unsubscribe = onSnapshot(doc(db, 'users', chatToUid), doc => {
-      setChatTo(doc.data());
+      dispatch(setUser(doc.data()));
     });
 
     return () => {
       unsubscribe();
+      // Clear user not to create duplicates nor keep deleted items
+      dispatch(removeUser(chatToUid));
     };
-  }, [chatToUid]);
+  }, [chatToUid, dispatch]);
 
   return (
     <div>
       <Link to={`/${id}`} className={`${styles.link} sidebar-container`}>
         <div className={styles.grid}>
           <div className="align-self-center">
-            <Avatar username={chatTo.username} size="sm" />
+            <Avatar username={chatTo?.username} size="sm" />
           </div>
 
           <div className={styles.content}>
             <div className="d-flex flex-column justify-content-center">
-              <span className="fw-bold text-truncate">{chatTo.username}</span>
+              <span className="fw-bold text-truncate">{chatTo?.username}</span>
               {lastMessage.text && (
                 <span className={`${styles.message} text-truncate`}>
                   {lastMessage.text}
@@ -55,13 +57,15 @@ const ChatCard = ({ id, members, lastMessage }) => {
 };
 
 ChatCard.propTypes = {
-  uid: PropTypes.string,
-  username: PropTypes.string,
+  id: PropTypes.string,
+  members: PropTypes.array,
+  lastMessage: PropTypes.object,
 };
 
 ChatCard.defaultProps = {
-  uid: '',
-  username: '',
+  id: '',
+  members: [],
+  lastMessage: {},
 };
 
 export default ChatCard;

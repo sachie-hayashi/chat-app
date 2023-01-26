@@ -13,17 +13,17 @@ const SearchForm = () => {
 
   const { currentUser, chatList } = useSelector(state => state);
 
-  // Find existing users by members uid
+  const searchTerm = input.trim();
+
+  const clearInput = () => setInput('');
+
+  // Find existing users by member's uid
   // use useMemo for useEffect not to create infinite loop
   const existingUsers = useMemo(() => {
     return chatList.map(item =>
       item.members.find(user => user.uid !== currentUser.uid)
     );
   }, [chatList, currentUser.uid]);
-
-  const searchTerm = input.trim();
-
-  const clearInput = () => setInput('');
 
   useClickOutside(ref, clearInput);
 

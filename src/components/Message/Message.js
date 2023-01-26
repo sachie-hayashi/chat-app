@@ -4,20 +4,24 @@ import dayjs from 'dayjs';
 import Avatar from '../Avatar';
 import styles from './Message.module.scss';
 
-const Message = ({ text, sentBy, sentAt }) => {
+const Message = ({ text, sentBy, sentAt, chatTo }) => {
   const { currentUser } = useSelector(state => state);
 
   const time = dayjs.unix(sentAt.seconds).format('MMM D, YYYY, h:mm a');
+
+  const isCurrentUser = sentBy === currentUser.uid;
 
   return (
     <div className={styles.root}>
       <div
         className={`${styles.grid} ${
-          sentBy === currentUser.uid ? styles.right : styles.left
+          isCurrentUser ? styles.right : styles.left
         }`}
       >
         <div className={styles.avatar}>
-          <Avatar username="Darrell Steward" />
+          <Avatar
+            username={isCurrentUser ? currentUser.username : chatTo?.username}
+          />
         </div>
 
         <div className={`${styles.content} shadow-sm`}>
@@ -32,12 +36,16 @@ const Message = ({ text, sentBy, sentAt }) => {
 
 Message.propTypes = {
   text: PropTypes.string,
-  sentBy: PropTypes.string.isRequired,
-  sentAt: PropTypes.object.isRequired,
+  sentBy: PropTypes.string,
+  sentAt: PropTypes.object,
+  chatTo: PropTypes.object,
 };
 
 Message.defaultProps = {
   text: '',
+  sentBy: '',
+  sentAt: {},
+  chatTo: {},
 };
 
 export default Message;

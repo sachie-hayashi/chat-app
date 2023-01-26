@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isLoggedIn: false,
   uid: '',
+  username: '',
   email: '',
 };
 
@@ -16,7 +17,12 @@ const currentUserSlice = createSlice({
       },
       prepare: user => {
         const currentUser = user
-          ? { isLoggedIn: true, uid: user.uid, email: user.email }
+          ? {
+              isLoggedIn: true,
+              uid: user.uid,
+              username: user.username,
+              email: user.email,
+            }
           : initialState;
 
         return { payload: currentUser };

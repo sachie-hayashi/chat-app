@@ -16,9 +16,8 @@ import styles from './Footer.module.scss';
 const Footer = () => {
   const [input, setInput] = useState('');
 
-  const { id } = useParams();
-
   const { currentUser } = useSelector(state => state);
+  const { id } = useParams();
 
   const handleSubmit = async e => {
     e.preventDefault();

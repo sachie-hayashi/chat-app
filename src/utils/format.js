@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 
 /**
  * Format date
- * @param {number} timestamp timestamp (seconds)
- * @returns formatted date (time)
+ * @param {number} timestamp - Timestamp (seconds)
+ * @returns - Formatted date (time)
  */
 export const formatDate = timestamp => {
   const date = dayjs.unix(timestamp);
