@@ -54,6 +54,12 @@ const Footer = () => {
     }
   };
 
+  const handleKeyDown = e => {
+    if (e.code === 'Enter' && !e.shiftKey) {
+      handleSubmit(e);
+    }
+  };
+
   const handleUpload = e => {
     console.log('** file: ', e.target.files[0]);
   };
@@ -71,6 +77,7 @@ const Footer = () => {
             className={`${styles.textarea} form-control`}
             placeholder="Type a new message"
             onChange={e => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button type="submit" className={styles.submit}>
             <Icon name="paper-plane" />
