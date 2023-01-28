@@ -1,26 +1,20 @@
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../firebase';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import FormInput from '../../components/FormInput';
-import styles from './Login.module.scss';
+import styles from './PasswordReset.module.scss';
 
-const initialInputs = { email: '', password: '' };
 const initialError = { code: '', message: '' };
 
-const Login = () => {
-  const [inputs, setInputs] = useState(initialInputs);
+const PasswordReset = () => {
+  const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(initialError);
+  const [message, setMessage] = useState('');
   const [isValidated, setIsValidated] = useState(false);
-
-  const navigate = useNavigate();
-
-  const handleChange = ({ target: { name, value } }) => {
-    setInputs(prev => ({ ...prev, [name]: value }));
-  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -32,10 +26,13 @@ const Login = () => {
     try {
       setIsLoading(true);
       setError(initialError);
+      setMessage('');
 
-      await signInWithEmailAndPassword(auth, inputs.email, inputs.password);
+      await sendPasswordResetEmail(auth, email);
 
-      navigate('/');
+      setMessage(
+        'An email has been sent. Check your inbox for further instructions.'
+      );
     } catch (error) {
       console.error(error);
       setError({ code: error.code, message: error.message });
@@ -48,8 +45,8 @@ const Login = () => {
     <div className={`${styles.root} section`}>
       <div className="container">
         <div className="container-inner-sm text-center">
-          <h1>Sign in</h1>
-          <p>Sign in to continue.</p>
+          <h1>Reset Password</h1>
+          <p>Enter your email to reset password.</p>
 
           <div className="my-5">
             <form
@@ -61,28 +58,16 @@ const Login = () => {
                 label="Email"
                 type="email"
                 name="email"
-                value={inputs.email}
+                value={email}
                 required
                 error="Please enter a valid email."
-                onChange={handleChange}
+                onChange={e => setEmail(e.target.value)}
               />
-              <div>
-                <Link to="/password-reset" className="float-end">
-                  Forgot password
-                </Link>
-                <FormInput
-                  label="Password"
-                  type="password"
-                  name="password"
-                  value={inputs.password}
-                  minLength="6"
-                  required
-                  error="Please enter a valid password. (6 characters or more)"
-                  onChange={handleChange}
-                />
-              </div>
 
               <div className="mt-3">
+                {message && !error.code && (
+                  <Alert variant="success">{message}</Alert>
+                )}
                 {error.code && <Alert variant="danger">{error.code}</Alert>}
 
                 <Button
@@ -91,14 +76,14 @@ const Login = () => {
                   variant="primary"
                   className="w-100"
                 >
-                  Sign In
+                  Send Reset Link
                 </Button>
               </div>
             </form>
           </div>
 
           <p>
-            Don't have an account? <Link to="/register">Sign up</Link>.
+            Remember It? <Link to="/login">Sign in</Link>.
           </p>
         </div>
       </div>
@@ -106,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default PasswordReset;

@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentUser } from './redux/currentUserSlice';
 import { onAuthStateChanged } from 'firebase/auth';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from './redux/currentUserSlice';
 import Dashboard from './pages/Dashboard';
+import ChatRoom from './layouts/ChatRoom';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import ChatRoom from './layouts/ChatRoom';
+import PasswordReset from './pages/PasswordReset';
 import './App.scss';
-import { doc, onSnapshot } from 'firebase/firestore';
 
 const App = () => {
   const { isLoggedIn, uid } = useSelector(state => state.currentUser);
@@ -56,6 +57,7 @@ const App = () => {
       </Route>
       <Route path="/register" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/password-reset" element={<PasswordReset />} />
     </Routes>
   );
 };

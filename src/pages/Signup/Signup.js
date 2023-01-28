@@ -9,11 +9,12 @@ import FormInput from '../../components/FormInput';
 import styles from './Signup.module.scss';
 
 const initialInputs = { username: '', email: '', password: '' };
+const initialError = { code: '', message: '' };
 
 const Signup = () => {
   const [inputs, setInputs] = useState(initialInputs);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState({ code: '', message: '' });
+  const [error, setError] = useState(initialError);
   const [isValidated, setIsValidated] = useState(false);
 
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Signup = () => {
 
     try {
       setIsLoading(true);
+      setError(initialError);
 
       // Create user on firebase auth
       const userCredential = await createUserWithEmailAndPassword(
@@ -50,7 +52,7 @@ const Signup = () => {
       navigate('/');
     } catch (error) {
       console.error(error);
-      setError(prev => ({ ...prev, code: error.code, message: error.message }));
+      setError({ code: error.code, message: error.message });
     } finally {
       setIsLoading(false);
     }
