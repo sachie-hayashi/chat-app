@@ -41,9 +41,11 @@ const ChatCard = ({ id, members, lastMessage }) => {
           <div className={styles.content}>
             <div className="d-flex flex-column justify-content-center">
               <span className="fw-bold text-truncate">{chatTo?.username}</span>
-              {lastMessage.text && (
+              {(lastMessage.text || lastMessage.image) && (
                 <span className={`${styles.message} text-truncate`}>
-                  {lastMessage.text}
+                  {!lastMessage.text && lastMessage.image
+                    ? 'An image was sent.'
+                    : lastMessage.text}
                 </span>
               )}
             </div>

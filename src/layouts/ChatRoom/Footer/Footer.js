@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 import {
   arrayUnion,
   doc,
@@ -8,8 +10,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
+import { uploadImage } from '../../../utils/storage';
 import Icon from '../../../components/Icon';
 import styles from './Footer.module.scss';
 
@@ -22,17 +23,25 @@ const Footer = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
+    const file = e.target.files?.[0];
     const text = input.trim();
 
-    if (!text) return;
+    if (!file && !text) return;
+
+    let message = {
+      id: nanoid(),
+      text,
+      image: '',
+      sentBy: currentUser.uid,
+      sentAt: Timestamp.now(), // serverTimestamp() not working
+    };
 
     try {
-      const message = {
-        id: nanoid(),
-        text,
-        sentBy: currentUser.uid,
-        sentAt: Timestamp.now(), // serverTimestamp() not working
-      };
+      if (file) {
+        // Upload image and get image url
+        const image = await uploadImage(file);
+        message = { ...message, text: '', image };
+      }
 
       // Update lastMessage in chatList
       await updateDoc(doc(db, 'chatList', id), {
@@ -48,7 +57,8 @@ const Footer = () => {
         { merge: true }
       );
 
-      setInput('');
+      // Clear input if text (not image) has been uploaded
+      if (!file) setInput('');
     } catch (error) {
       console.error(error);
     }
@@ -58,10 +68,6 @@ const Footer = () => {
     if (e.code === 'Enter' && !e.shiftKey) {
       handleSubmit(e);
     }
-  };
-
-  const handleUpload = e => {
-    console.log('** file: ', e.target.files[0]);
   };
 
   return (
@@ -93,7 +99,7 @@ const Footer = () => {
                 name="file"
                 accept="image/*"
                 className="visually-hidden"
-                onChange={handleUpload}
+                onChange={handleSubmit}
               />
               <Icon name="paperclip" />
             </label>
