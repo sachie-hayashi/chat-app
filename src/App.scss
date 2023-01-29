@@ -35,6 +35,15 @@ a {
   font-size: $font-size-lg !important;
 }
 
+.text-inherit {
+  color: inherit !important;
+}
+
+// Images
+img {
+  max-width: 100%;
+}
+
 // Buttons
 button {
   all: unset;

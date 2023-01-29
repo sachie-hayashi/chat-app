@@ -50,6 +50,12 @@
   }
 }
 
+.image {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+}
+
 .time {
   color: $body-color-light;
   font-size: $font-size-sm;

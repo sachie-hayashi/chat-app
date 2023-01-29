@@ -3,6 +3,7 @@ import { ReactComponent as ThreeDots } from '../../assets/icon-three-dots.svg';
 import { ReactComponent as Paperclip } from '../../assets/icon-paperclip.svg';
 import { ReactComponent as SmileySmile } from '../../assets/icon-smiley-smile.svg';
 import { ReactComponent as PaperPlane } from '../../assets/icon-paper-plane.svg';
+import { ReactComponent as Search } from '../../assets/icon-search.svg';
 
 /**
  * Renders a SVG icon
@@ -22,6 +23,8 @@ const Icon = ({ name, ...attr }) => {
       return <SmileySmile {...attr} />;
     case 'paper-plane':
       return <PaperPlane {...attr} />;
+    case 'search':
+      return <Search {...attr} />;
     default:
       return;
   }

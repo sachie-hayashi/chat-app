@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isLoggedIn: false,
   uid: '',
+  username: '',
   email: '',
 };
 
@@ -10,13 +11,18 @@ const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState: initialState,
   reducers: {
-    getCurrentUser: {
+    setCurrentUser: {
       reducer: (state, action) => {
         return { ...state, ...action.payload };
       },
       prepare: user => {
         const currentUser = user
-          ? { isLoggedIn: true, uid: user.uid, email: user.email }
+          ? {
+              isLoggedIn: true,
+              uid: user.uid,
+              username: user.username || '',
+              email: user.email,
+            }
           : initialState;
 
         return { payload: currentUser };
@@ -25,6 +31,6 @@ const currentUserSlice = createSlice({
   },
 });
 
-export const { getCurrentUser } = currentUserSlice.actions;
+export const { setCurrentUser } = currentUserSlice.actions;
 
 export default currentUserSlice.reducer;

@@ -1,4 +1,4 @@
-@import '../../styles/core';
+@import '../../../styles/core';
 
 .textarea {
   padding-right: calc($input-padding-x * 2 + 20px) !important;
@@ -23,4 +23,9 @@
     width: 1.125rem;
     height: 1.125rem;
   }
+}
+
+.picker {
+  @include position(absolute, $left: 0, $bottom: 100%);
+  margin-bottom: 0.25rem;
 }

@@ -10,6 +10,7 @@ $tertiary: #f1f1fa;
 $light: #f5f7fb;
 $white: #fff;
 $red: #dc3545;
+$green: #198754;
 
 $text-muted: #adb4c2;
 
@@ -23,6 +24,7 @@ $theme-colors: (
   primary: $primary,
   secondary: $secondary,
   light: $light,
+  success: $green,
   danger: $red,
 );
 
