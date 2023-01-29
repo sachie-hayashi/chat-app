@@ -20,7 +20,7 @@ const currentUserSlice = createSlice({
           ? {
               isLoggedIn: true,
               uid: user.uid,
-              username: user.username,
+              username: user.username || '',
               email: user.email,
             }
           : initialState;

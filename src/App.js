@@ -39,6 +39,8 @@ const App = () => {
     if (!uid) return;
 
     const unsubscribe = onSnapshot(doc(db, 'users', uid), doc => {
+      if (!doc.exists()) return;
+
       dispatch(setCurrentUser(doc.data()));
     });
 
