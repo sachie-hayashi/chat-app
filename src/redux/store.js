@@ -14,4 +14,6 @@ export const store = configureStore({
       // Remove non-serializable value error for Firestore timestamp
       serializableCheck: false,
     }),
+  // Disable devtools in production
+  devTools: process.env.NODE_ENV !== 'production',
 });
