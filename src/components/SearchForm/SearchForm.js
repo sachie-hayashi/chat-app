@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useSelector } from 'react-redux';
@@ -8,22 +8,14 @@ import styles from './SearchForm.module.scss';
 
 const SearchForm = () => {
   const [input, setInput] = useState('');
-  const [users, setUsers] = useState([]);
+  const [resultUsers, setResultUsers] = useState([]);
   const ref = useRef(null);
 
-  const { currentUser, chatList } = useSelector(state => state);
+  const { currentUser, users } = useSelector(state => state);
 
   const searchTerm = input.trim();
 
   const clearInput = () => setInput('');
-
-  // Find existing users by member's uid
-  // use useMemo for useEffect not to create infinite loop
-  const existingUsers = useMemo(() => {
-    return chatList.map(item =>
-      item.members.find(user => user.uid !== currentUser.uid)
-    );
-  }, [chatList, currentUser.uid]);
 
   useClickOutside(ref, clearInput);
 
@@ -39,17 +31,18 @@ const SearchForm = () => {
       const querySnapshot = await getDocs(q);
 
       // Clear users not to create duplicates
-      setUsers([]);
+      setResultUsers([]);
 
       querySnapshot.forEach(doc => {
         const data = doc.data();
 
+        const existingUsers = users.map(user => user.uid);
         // Remove existing users && current user from search result
         if (existingUsers.includes(data.uid) || data.uid === currentUser.uid) {
           return;
         }
 
-        setUsers(prev => [...prev, doc.data()]);
+        setResultUsers(prev => [...prev, doc.data()]);
       });
     };
 
@@ -58,7 +51,7 @@ const SearchForm = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [currentUser.uid, existingUsers, searchTerm]);
+  }, [currentUser.uid, searchTerm, users]);
 
   return (
     <div ref={ref} className="position-relative">
@@ -71,9 +64,9 @@ const SearchForm = () => {
         onChange={e => setInput(e.target.value)}
       />
 
-      {searchTerm && users.length > 0 && (
+      {searchTerm && resultUsers.length > 0 && (
         <div className={styles.results}>
-          {users.map(user => (
+          {resultUsers.map(user => (
             <SearchCard key={user.uid} {...user} onClick={clearInput} />
           ))}
         </div>
